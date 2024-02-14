@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Project Log Viewer</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" >
+        </head>
+    <style>
+        body{
+            background-color: #111;
+        }
+        .sidebar {
+          height: 100%;
+          width: 200px;
+          position: fixed;
+          top: 0;
+          left: 0;
+          background-color: white;
+          overflow-x: hidden;
+          padding-top: 20px;
+        }
+      
+        /* Sidebar links */
+      .sidebar a {
+          padding: 10px 15px;
+          text-decoration: none;
+          font-size: 16px;
+          color: black;
+          display: block;
+        }
+        .search {
+            
+            top: 0;
+            left: 15%;
+            color: #111;
+            position: fixed;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+        .content h4{
+            top: 15%;
+            left: 15%;
+            color: white;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+      </style>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="sidebar">
+                        <a href="apache" onclick="loadLogs('apache')">Apache</a>
+                        <ul>
+                            <a href="apache_access_logs" onclick="loadLogs('apache_access_logs')">Access Logs</a>
+                            <a href="apache_error_logs" onclick="loadLogs('apache_error_logs')">Error Logs</a>
+                            <a href="apache_attack_logs" onclick="loadLogs('apache_attack_logs')">Attack Logs</a>
+                        </ul>
+                        <a href="mysql_logs" onclick="loadLogs('mysql_logs')">MySQL</a>
+                        <ul>
+                            <a href="mysql_startup_logs" onclick="loadLogs('mysql_startup_logs')">Startup Logs</a>
+                            <a href="mysql_shutdown_logs" onclick="loadLogs('mysql_shutdown_logs')">Shutdown Logs</a>
+                        </ul>
+                        <a href="nginx_logs" onclick="loadLogs('nginx_logs')">Nginx</a>
+                        <ul>
+                            <a href="nginx_access_logs" onclick="loadLogs('nginx_access_logs')">Access Logs</a>
+                            <a href="nginx_error_logs" onclick="loadLogs('nginx_error_logs')">Error Logs</a>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clo-md-8">
+                    <div class="search">
+                        <input type="text" placeholder="Search logs...">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <div class="content">
+                            <h4 id="logs"></h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function loadLogs(service) {
+                document.getElementById('logs').innerHTML = 'Loading logs for ' + service + '...';
+                setTimeout(function() {
+                    let logs = getLogsForService(service);
+                    document.getElementById('logs').innerHTML = logs;
+                }, 1000); // Adjust timeout as needed
+            }
+            function getLogsForService(service) {
+                if (service === 'apache') {
+                    return window.location.href= "apache.html";
+                } else if (service === 'apache_access_logs') {
+                    return window.location.href= "apache_access.html";
+                } else if (service === 'apache_error_logs') {
+                    return window.location.href= "apache_error.html";
+                } else if (service === 'apache_attack_logs') {
+                    return window.location.href= "apache_attack.html";
+                }else if (service === 'mysql_logs') {
+                    return window.location.href= "mysql.html";
+                } else if (service === 'mysql_startup_logs') {
+                    return window.location.href= "mysql_startup.html";
+                } else if (service === 'mysql_shutdown_logs') {
+                    return window.location.href= "mysql_shutdown.html";
+                } else if (service === 'nginx_logs') {
+                    return window.location.href= "nginx.html";
+                } else if (service === 'nginx_access_logs') {
+                    return window.location.href= "nginx_access.html";
+                } else if (service === 'nginx_error_logs') {
+                    return window.location.href= "nginx_error.html";
+                } else {
+                    return 'No logs found for ' + service;
+                }
+            }
+        </script>
+    </body>
+</html>
